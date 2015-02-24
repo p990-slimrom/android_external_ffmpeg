@@ -2,7 +2,7 @@
 #include TARGET_CONFIG
 #ifndef FFMPEG_CONFIG_H
 #define FFMPEG_CONFIG_H
-#define FFMPEG_CONFIGURATION "--arch=arm --target-os=linux --enable-cross-compile --cross-prefix=/a/dev/lollipop/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.8/bin/arm-linux-androideabi- --sysroot=/a/dev/lollipop/prebuilts/ndk/current/platforms/android-19/arch-arm --enable-shared --enable-static --enable-avresample --extra-cflags='-march=armv7-a -mfloat-abi=softfp -mfpu=neon' --extra-ldflags='-Wl,--fix-cortex-a8'"
+#define FFMPEG_CONFIGURATION "--arch=arm --target-os=linux --enable-cross-compile --cross-prefix=/a/dev/lollipop/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.8/bin/arm-linux-androideabi- --sysroot=/a/dev/lollipop/prebuilts/ndk/current/platforms/android-19/arch-arm --enable-shared --enable-static --enable-avresample --extra-cflags='-march=armv7-a -mfloat-abi=softfp' --extra-ldflags='-Wl,--fix-cortex-a8'"
 #define FFMPEG_LICENSE "LGPL version 2.1 or later"
 #define CONFIG_THIS_YEAR 2014
 #define FFMPEG_DATADIR "/usr/local/share/ffmpeg"
@@ -55,7 +55,7 @@
 #define HAVE_ARMV6 1
 #define HAVE_ARMV6T2 1
 #define HAVE_ARMV8 0
-#define HAVE_NEON 1
+#define HAVE_NEON 0
 #define HAVE_VFP 1
 #define HAVE_VFPV3 1
 #define HAVE_SETEND 1
@@ -90,7 +90,7 @@
 #define HAVE_ARMV6_EXTERNAL 1
 #define HAVE_ARMV6T2_EXTERNAL 1
 #define HAVE_ARMV8_EXTERNAL 0
-#define HAVE_NEON_EXTERNAL 1
+#define HAVE_NEON_EXTERNAL 0
 #define HAVE_VFP_EXTERNAL 1
 #define HAVE_VFPV3_EXTERNAL 1
 #define HAVE_SETEND_EXTERNAL 1
@@ -125,7 +125,7 @@
 #define HAVE_ARMV6_INLINE 1
 #define HAVE_ARMV6T2_INLINE 1
 #define HAVE_ARMV8_INLINE 0
-#define HAVE_NEON_INLINE 1
+#define HAVE_NEON_INLINE 0
 #define HAVE_VFP_INLINE 1
 #define HAVE_VFPV3_INLINE 1
 #define HAVE_SETEND_INLINE 1
@@ -224,7 +224,7 @@
 #define HAVE_UNISTD_H 1
 #define HAVE_WINDOWS_H 0
 #define HAVE_WINSOCK2_H 0
-#define HAVE_INTRINSICS_NEON 1
+#define HAVE_INTRINSICS_NEON 0
 #define HAVE_ATANF 1
 #define HAVE_ATAN2F 1
 #define HAVE_CBRT 1
