@@ -425,7 +425,7 @@ static av_always_inline int inv_recenter_nonneg(int v, int m)
 // differential forward probability updates
 static int update_prob(VP56RangeCoder *c, int p)
 {
-    static const int inv_map_table[254] = {
+    static const int inv_map_table[255] = {
           7,  20,  33,  46,  59,  72,  85,  98, 111, 124, 137, 150, 163, 176,
         189, 202, 215, 228, 241, 254,   1,   2,   3,   4,   5,   6,   8,   9,
          10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  21,  22,  23,  24,
@@ -444,7 +444,7 @@ static int update_prob(VP56RangeCoder *c, int p)
         207, 208, 209, 210, 211, 212, 213, 214, 216, 217, 218, 219, 220, 221,
         222, 223, 224, 225, 226, 227, 229, 230, 231, 232, 233, 234, 235, 236,
         237, 238, 239, 240, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251,
-        252, 253,
+        252, 253, 253,
     };
     int d;
 
@@ -474,6 +474,7 @@ static int update_prob(VP56RangeCoder *c, int p)
         if (d >= 65)
             d = (d << 1) - 65 + vp8_rac_get(c);
         d += 64;
+        av_assert2(d < FF_ARRAY_ELEMS(inv_map_table));
     }
 
     return p <= 128 ? 1 + inv_recenter_nonneg(inv_map_table[d], p - 1) :
@@ -3286,7 +3287,7 @@ static void decode_b(AVCodecContext *ctx, int row, int col,
     }
 
     // emulated overhangs if the stride of the target buffer can't hold. This
-    // allows to support emu-edge and so on even if we have large block
+    // makes it possible to support emu-edge and so on even if we have large block
     // overhangs
     emu[0] = (col + w4) * 8 > f->linesize[0] ||
              (row + h4) > s->rows;
@@ -3988,7 +3989,8 @@ static int vp9_decode_frame(AVCodecContext *ctx, void *frame,
     int size = pkt->size;
     VP9Context *s = ctx->priv_data;
     int res, tile_row, tile_col, i, ref, row, col;
-    int retain_segmap_ref = s->segmentation.enabled && !s->segmentation.update_map;
+    int retain_segmap_ref = s->segmentation.enabled && !s->segmentation.update_map
+                            && s->frames[REF_FRAME_SEGMAP].segmentation_map;
     ptrdiff_t yoff, uvoff, ls_y, ls_uv;
     AVFrame *f;
     int bytesperpixel;
